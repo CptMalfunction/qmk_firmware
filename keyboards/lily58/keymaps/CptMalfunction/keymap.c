@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 /* RAISE
  * ,-----------------------------------------.                    ,-----------------------------------------.
- * | DEL  |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * | DEL  |PSCRN |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |   `  |   1  |   2  |   3  |   4  |   5  |                    |   6  |   7  |   8  |   9  |   0  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_RAISE] = LAYOUT(
-  KC_DEL, _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______, _______,
+  KC_DEL, KC_PSCREEN, _______, _______, _______, _______,                     _______, _______, _______, _______, _______, _______,
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
   KC_F1,  KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,                       KC_HOME, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_END,
   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,   _______, _______,  KC_PLUS, KC_MINS, KC_LBRC, KC_RBRC, KC_EQL, KC_BSLS,
@@ -160,19 +160,18 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     } else if (index == 1) { // Right
         switch (biton32(layer_state)) {
             case _QWERTY:
-                // Scrolling with PageUp and PgDn.
                 if (clockwise) {
-                    tap_code(KC_PGDN);
+                    tap_code(KC_UP);
                 } else {
-                    tap_code(KC_PGUP);
+                    tap_code(KC_DOWN);
                 }
                 break;
             default:
-                // Scroll through tabs
+                // Scrolling with PageUp and PgDn.
                 if (clockwise) {
-                    tap_code16(C(KC_TAB));
+                    tap_code16(KC_PGUP);
                 } else {
-                    tap_code16(S(C(KC_TAB)));
+                    tap_code16(KC_PGDN);
                 }
                 break;
         }
